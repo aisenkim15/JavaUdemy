@@ -15,17 +15,14 @@ public class MobilePhone {
         return true;
     }
 
-    //store
-    public static void storeContact(Contacts contact) {
-        if (contactList.indexOf(contact) < 0) {
-            contactList.add(contact);
-        }
-    }
 
     public boolean modifyContact(Contacts originalContact, Contacts updatedContact) {
         int foundPosition = queryContact(originalContact);
         if (foundPosition < 0) {
             System.out.println(originalContact.getName() + " was not found.");
+            return false;
+        } else if (queryContact(updatedContact.getName()) != -1) {
+            System.out.println("Contact with name: " + updatedContact.getName() + "already exists");
             return false;
         }
         contactList.set(foundPosition, updatedContact);
@@ -60,6 +57,14 @@ public class MobilePhone {
     public String findContact(Contacts contact) {
         if (queryContact(contact) >= 0) {
             return contact.getName();
+        }
+        return null;
+    }
+
+    public Contacts findContact(String name) {
+        int position = queryContact(name);
+        if (position >= 0) {
+            return contactList.get(position);
         }
         return null;
     }
