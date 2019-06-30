@@ -76,6 +76,7 @@ public class mainCar {
         car.startEngine();
         car.accelerate();
         car.brake();
+        System.out.println("Testing for Git");
     }
     public static Car randomCar(){
         int randCarGen = (int) (Math.random()*2)+1;
