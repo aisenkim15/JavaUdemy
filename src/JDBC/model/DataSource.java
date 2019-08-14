@@ -62,6 +62,8 @@ public class DataSource {
     public static final String QUERY_ARTIST_FOR_SONG_SORT =
             " ORDER BY " + TABLE_ARTISTS + "." + COLUMN_ARTIST_NAME + ", " + TABLE_ALBUMS + "." + COLUMN_ALBUM_NAME +
                     " COLLATE NOCASE ";
+
+    public static final String TABLE_ARTIST_SONG_VIEW = "artist_list";
     //Creating connection part (open and close methods)
     private Connection conn;
 
@@ -189,6 +191,20 @@ public class DataSource {
         } catch (SQLException e) {
             System.out.println("Query Failed: " + e.getMessage());
         }
+    }
+
+    public int getCount(String table) {
+        String sql = "SELECT COUNT(*) FROM " + table;
+        try (Statement statement = conn.createStatement();
+             ResultSet results = statement.executeQuery(sql)) {
+            int count = results.getInt(1);
+            System.out.format("\nCount = %d\n", count);
+            return count;
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return -1;
+        }
+
     }
 
 }
